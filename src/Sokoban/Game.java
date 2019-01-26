@@ -1,6 +1,7 @@
 package Sokoban;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +19,13 @@ public class Game implements ActionListener
     {
         window = new JFrame("Sokoban");
 
-        map = new Map("./test.map");
+        JFileChooser fileopen = new JFileChooser("./");
+        fileopen.setFileFilter(new FileNameExtensionFilter("Map file", "map"));
+        if (fileopen.showDialog(window, "Open") != JFileChooser.APPROVE_OPTION) {
+            System.exit(1);
+        }
+
+        map = new Map(fileopen.getSelectedFile().getName());
         player = new Player(map.playerx, map.playery, true);
         renderer = new Renderer(map, player);
 

@@ -1,6 +1,7 @@
 package Sokoban;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +41,7 @@ public class Editor implements ActionListener
         open.addActionListener(e -> {
             currentFile = null;
             JFileChooser fileopen = new JFileChooser("./");
+            fileopen.setFileFilter(new FileNameExtensionFilter("Map file", "map"));
             if (fileopen.showDialog(window, "Open") == JFileChooser.APPROVE_OPTION) {
                 if (!map.load(fileopen.getSelectedFile().getName())) {
                     JOptionPane.showMessageDialog(window, "Cannot load map", "Error", JOptionPane.ERROR_MESSAGE);
@@ -56,6 +58,7 @@ public class Editor implements ActionListener
         save.addActionListener(e -> {
             if (currentFile == null) {
                 JFileChooser filesave = new JFileChooser("./");
+                filesave.setFileFilter(new FileNameExtensionFilter("Map file", "map"));
                 if (filesave.showDialog(window, "Open") != JFileChooser.APPROVE_OPTION) {
                     return;
                 }
@@ -67,6 +70,7 @@ public class Editor implements ActionListener
 
         saveAs.addActionListener(e -> {
             JFileChooser filesave = new JFileChooser("./");
+            filesave.setFileFilter(new FileNameExtensionFilter("Map file", "map"));
             if (filesave.showDialog(window, "Open") == JFileChooser.APPROVE_OPTION) {
                 save(filesave.getSelectedFile().getName());
             }
